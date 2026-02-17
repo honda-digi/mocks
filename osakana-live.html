@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>おっちゃんのライブ販売 | スマホ1台で、獲れたて直送。</title>
+<title>おさかなライブ | スマホ1台で、獲れたて直送。</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;700;900&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
@@ -50,6 +50,11 @@
     z-index: 2;
   }
   .hero-content { position: relative; z-index: 3; max-width: 800px; animation: fadeInUp 1s ease-out; }
+  .service-logo {
+    font-family: 'Zen Maru Gothic', sans-serif; font-size: clamp(1.2rem, 3vw, 1.6rem); font-weight: 900;
+    color: #fff; letter-spacing: 0.1em; margin-bottom: 1.5rem;
+    animation: fadeInUp 1s ease-out 0.1s both;
+  }
   @keyframes fadeInUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
   .hero-badge {
     display: inline-block; background: var(--sunrise-orange); color: #fff;
@@ -251,6 +256,7 @@
 <section class="hero">
   <div class="hero-bg"></div>
   <div class="hero-content">
+    <div class="service-logo">おさかなライブ</div>
     <div class="hero-badge">初期費用・月額 完全無料</div>
     <h1>
       <span class="accent">スマホ1台</span>で、<br>獲れたて直送。
@@ -524,7 +530,7 @@
 </section>
 
 <footer>
-  <p>© 2025 ライブ直送サービス ／ 長崎県</p>
+  <p>© 2025 おさかなライブ ／ 長崎県</p>
   <p style="margin-top: 0.5rem;"><a href="#">特定商取引法に基づく表記</a> ／ <a href="#">プライバシーポリシー</a></p>
 </footer>
 
