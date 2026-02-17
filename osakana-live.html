@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>おっちゃんのライブ販売 | スマホ1台で、獲れたて直送。</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;700;900&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ocean-deep: #0B1D3A;
+    --ocean-mid: #1a3a5c;
+    --wave-blue: #2E86AB;
+    --sunrise-orange: #F26419;
+    --sunrise-gold: #F6AE2D;
+    --foam-white: #F7F5F2;
+    --sand: #E8DED1;
+    --coral: #E84855;
+    --sea-green: #33A1A8;
+    --text-dark: #1a1a1a;
+    --text-mid: #4a4a4a;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Noto Sans JP', sans-serif; color: var(--text-dark); background: var(--foam-white); overflow-x: hidden; }
+  .zen { font-family: 'Zen Maru Gothic', sans-serif; }
+
+  /* ===== HERO ===== */
+  .hero {
+    min-height: 100vh;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 2rem;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background: url('https://images.unsplash.com/photo-1507991426709-5bbee2c6a189?q=80&w=1074&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') center/cover no-repeat;
+    filter: brightness(0.35);
+    z-index: 0;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; bottom: -2px; left: 0; right: 0; height: 120px;
+    background: var(--foam-white);
+    clip-path: ellipse(55% 100% at 50% 100%);
+    z-index: 2;
+  }
+  .hero-content { position: relative; z-index: 3; max-width: 800px; animation: fadeInUp 1s ease-out; }
+  @keyframes fadeInUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+  .hero-badge {
+    display: inline-block; background: var(--sunrise-orange); color: #fff;
+    padding: 0.5rem 1.5rem; border-radius: 50px; font-size: 0.9rem; font-weight: 700;
+    margin-bottom: 2rem; animation: fadeInUp 1s ease-out 0.2s both;
+  }
+  .hero h1 {
+    font-family: 'Zen Maru Gothic', sans-serif; color: #fff;
+    font-size: clamp(2.2rem, 6vw, 4.2rem); font-weight: 900; line-height: 1.3;
+    margin-bottom: 1rem; animation: fadeInUp 1s ease-out 0.3s both;
+    text-shadow: 0 2px 20px rgba(0,0,0,0.3);
+  }
+  .hero h1 .accent { color: var(--sunrise-gold); }
+  .hero h1 .small-line { display: block; font-size: clamp(1rem, 3vw, 1.6rem); font-weight: 700; color: rgba(255,255,255,0.85); margin-top: 0.5rem; }
+  .hero-sub { color: rgba(255,255,255,0.9); font-size: clamp(1rem, 2.5vw, 1.3rem); line-height: 1.8; margin-bottom: 2.5rem; animation: fadeInUp 1s ease-out 0.5s both; }
+  .hero-cta {
+    display: inline-block; background: var(--sunrise-orange); color: #fff;
+    font-family: 'Zen Maru Gothic', sans-serif; font-size: 1.2rem; font-weight: 700;
+    padding: 1rem 3rem; border-radius: 60px; text-decoration: none;
+    transition: all 0.3s ease; box-shadow: 0 4px 24px rgba(242,100,25,0.4);
+    animation: fadeInUp 1s ease-out 0.7s both;
+  }
+  .hero-cta:hover { transform: translateY(-3px) scale(1.03); box-shadow: 0 8px 32px rgba(242,100,25,0.5); }
+  .hero-note { color: rgba(255,255,255,0.6); font-size: 0.85rem; margin-top: 1rem; animation: fadeInUp 1s ease-out 0.9s both; }
+
+  /* ===== SECTIONS ===== */
+  section { padding: 5rem 2rem; }
+  .section-inner { max-width: 960px; margin: 0 auto; }
+  .section-label { display: inline-block; background: var(--wave-blue); color: #fff; font-size: 0.8rem; font-weight: 700; padding: 0.3rem 1rem; border-radius: 50px; margin-bottom: 1rem; }
+  .section-title { font-family: 'Zen Maru Gothic', sans-serif; font-size: clamp(1.6rem, 4vw, 2.4rem); font-weight: 900; line-height: 1.4; margin-bottom: 1.5rem; color: var(--ocean-deep); }
+  .section-title .orange { color: var(--sunrise-orange); }
+
+  /* ===== PHOTO BAND ===== */
+  .photo-band {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; height: 280px; overflow: hidden;
+  }
+  .photo-band img { width: 100%; height: 100%; object-fit: cover; }
+  @media (max-width: 640px) { .photo-band { height: 180px; } }
+
+  /* ===== PROBLEM ===== */
+  .problem { background: var(--foam-white); }
+  .problem-grid { display: grid; grid-template-columns: 1fr; gap: 1.5rem; margin-top: 2rem; }
+  @media (min-width: 640px) { .problem-grid { grid-template-columns: 1fr 1fr; } }
+  .problem-card {
+    background: #fff; border-radius: 16px; padding: 2rem; border-left: 5px solid var(--coral);
+    box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+    opacity: 0; animation: fadeInUp 0.6s ease-out forwards;
+  }
+  .problem-card:nth-child(1) { animation-delay: 0.1s; }
+  .problem-card:nth-child(2) { animation-delay: 0.2s; }
+  .problem-card:nth-child(3) { animation-delay: 0.3s; }
+  .problem-card:nth-child(4) { animation-delay: 0.4s; }
+  .problem-card .icon { font-size: 2rem; margin-bottom: 0.8rem; }
+  .problem-card h3 { font-family: 'Zen Maru Gothic', sans-serif; font-size: 1.1rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--ocean-deep); }
+  .problem-card p { color: var(--text-mid); font-size: 0.95rem; line-height: 1.7; }
+
+  /* ===== SOLUTION ===== */
+  .solution {
+    background: var(--ocean-deep); color: #fff; position: relative; overflow: hidden;
+  }
+  .solution::before { content: ''; position: absolute; top: -2px; left: 0; right: 0; height: 80px; background: var(--foam-white); clip-path: ellipse(55% 100% at 50% 0%); }
+  .solution::after { content: ''; position: absolute; bottom: -2px; left: 0; right: 0; height: 80px; background: var(--foam-white); clip-path: ellipse(55% 100% at 50% 100%); }
+  .solution .section-label { background: var(--sunrise-orange); }
+  .solution .section-title { color: #fff; }
+  .solution .section-title .orange { color: var(--sunrise-gold); }
+  .steps { display: flex; flex-direction: column; margin-top: 3rem; position: relative; }
+  .step { display: flex; align-items: flex-start; gap: 1.5rem; padding: 2rem 0; position: relative; }
+  .step-number {
+    flex-shrink: 0; width: 64px; height: 64px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--sunrise-orange), var(--sunrise-gold));
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Zen Maru Gothic', sans-serif; font-size: 1.5rem; font-weight: 900; color: #fff;
+    box-shadow: 0 4px 20px rgba(242,100,25,0.3); position: relative; z-index: 2;
+  }
+  .step-content h3 { font-family: 'Zen Maru Gothic', sans-serif; font-size: 1.3rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--sunrise-gold); }
+  .step-content p { color: rgba(255,255,255,0.8); line-height: 1.8; font-size: 1rem; }
+  .step-connector { position: absolute; left: 31px; top: 76px; width: 3px; height: calc(100% - 64px); background: rgba(255,255,255,0.15); border-radius: 2px; }
+  .step:last-child .step-connector { display: none; }
+
+  /* ===== DIVIDE ===== */
+  .divide { background: #fff; }
+  .divide-grid { display: grid; grid-template-columns: 1fr; gap: 2rem; margin-top: 2rem; }
+  @media (min-width: 640px) { .divide-grid { grid-template-columns: 1fr 1fr; } }
+  .divide-box { border-radius: 20px; padding: 2.5rem 2rem; }
+  .divide-you { background: linear-gradient(135deg, #fff7ed, #ffedd5); border: 2px solid var(--sunrise-orange); }
+  .divide-us { background: linear-gradient(135deg, #e8f4f8, #d1ecf5); border: 2px solid var(--wave-blue); }
+  .divide-box h3 { font-family: 'Zen Maru Gothic', sans-serif; font-size: 1.4rem; font-weight: 900; margin-bottom: 1.5rem; }
+  .divide-you h3 { color: var(--sunrise-orange); }
+  .divide-us h3 { color: var(--wave-blue); }
+  .divide-list { list-style: none; display: flex; flex-direction: column; gap: 1rem; }
+  .divide-list li { display: flex; align-items: flex-start; gap: 0.8rem; font-size: 1rem; line-height: 1.6; color: var(--text-dark); }
+  .divide-list .emoji { font-size: 1.3rem; flex-shrink: 0; margin-top: 0.1rem; }
+
+  /* ===== PRODUCTS ===== */
+  .products { background: var(--foam-white); }
+  .product-grid { display: grid; grid-template-columns: 1fr; gap: 1.5rem; margin-top: 2rem; }
+  @media (min-width: 768px) { .product-grid { grid-template-columns: repeat(3, 1fr); } }
+  .product-card {
+    background: #fff; border-radius: 20px; overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.06); transition: transform 0.3s;
+  }
+  .product-card:hover { transform: translateY(-4px); }
+  .product-img { height: 200px; overflow: hidden; }
+  .product-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
+  .product-card:hover .product-img img { transform: scale(1.05); }
+  .product-body { padding: 1.5rem; }
+  .product-name { font-family: 'Zen Maru Gothic', sans-serif; font-size: 1.2rem; font-weight: 900; color: var(--ocean-deep); margin-bottom: 0.3rem; }
+  .product-weight { font-size: 0.9rem; color: var(--text-mid); margin-bottom: 0.8rem; }
+  .product-price { font-family: 'Zen Maru Gothic', sans-serif; font-size: 1.8rem; font-weight: 900; color: var(--sunrise-orange); }
+  .product-price .tax { font-size: 0.8rem; font-weight: 400; color: var(--text-mid); }
+  .product-note { font-size: 0.85rem; color: var(--text-mid); margin-top: 0.5rem; line-height: 1.5; }
+  .product-badge {
+    display: inline-block; background: var(--coral); color: #fff; font-size: 0.7rem;
+    font-weight: 700; padding: 0.2rem 0.6rem; border-radius: 4px; margin-bottom: 0.5rem;
+  }
+
+  /* ===== PRICING ===== */
+  .pricing { background: #fff; text-align: center; }
+  .price-card {
+    max-width: 560px; margin: 2rem auto 0; background: #fff; border-radius: 24px;
+    padding: 3rem 2rem; box-shadow: 0 8px 40px rgba(0,0,0,0.08);
+    border: 3px solid var(--wave-blue); position: relative; overflow: hidden;
+  }
+  .price-card::before { content: '🐟'; position: absolute; top: -10px; right: -10px; font-size: 6rem; opacity: 0.06; transform: rotate(15deg); }
+  .price-highlight { font-family: 'Zen Maru Gothic', sans-serif; font-size: 1.1rem; color: var(--wave-blue); font-weight: 700; margin-bottom: 1rem; }
+  .price-zero { font-family: 'Zen Maru Gothic', sans-serif; font-size: clamp(2.5rem, 6vw, 3.5rem); font-weight: 900; color: var(--ocean-deep); margin-bottom: 0.5rem; }
+  .price-zero .big { color: var(--sunrise-orange); }
+  .price-commission {
+    font-family: 'Zen Maru Gothic', sans-serif; font-size: 1.5rem; font-weight: 700;
+    color: var(--text-dark); margin-bottom: 2rem; padding-bottom: 2rem; border-bottom: 2px dashed var(--sand);
+  }
+  .price-commission .num { font-size: 2.5rem; color: var(--sunrise-orange); font-weight: 900; }
+  .price-includes { text-align: left; display: flex; flex-direction: column; gap: 0.8rem; }
+  .price-item { display: flex; align-items: center; gap: 0.8rem; font-size: 1rem; color: var(--text-mid); }
+  .price-check { flex-shrink: 0; width: 28px; height: 28px; background: var(--sea-green); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 0.85rem; font-weight: 700; }
+
+  /* ===== VOICE ===== */
+  .voice { background: var(--sand); }
+  .voice-card {
+    background: #fff; border-radius: 20px; padding: 2.5rem; max-width: 700px;
+    margin: 2rem auto 0; box-shadow: 0 4px 20px rgba(0,0,0,0.06); position: relative;
+  }
+  .voice-card::before { content: '"'; position: absolute; top: -10px; left: 20px; font-size: 5rem; color: var(--wave-blue); opacity: 0.2; font-family: Georgia, serif; line-height: 1; }
+  .voice-text { font-size: 1.1rem; line-height: 2; color: var(--text-dark); margin-bottom: 1.5rem; padding-left: 0.5rem; }
+  .voice-author { display: flex; align-items: center; gap: 1rem; padding-left: 0.5rem; }
+  .voice-avatar { width: 48px; height: 48px; border-radius: 50%; background: var(--wave-blue); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; }
+  .voice-name { font-family: 'Zen Maru Gothic', sans-serif; font-weight: 700; color: var(--ocean-deep); }
+  .voice-role { font-size: 0.85rem; color: var(--text-mid); }
+
+  /* ===== CTA ===== */
+  .cta {
+    text-align: center; padding: 5rem 2rem; position: relative; overflow: hidden;
+  }
+  .cta-bg {
+    position: absolute; inset: 0;
+    background: url('https://images.unsplash.com/photo-1498654200943-1088dd4438ae?w=1600&q=80') center/cover no-repeat;
+    filter: brightness(0.25);
+  }
+  .cta .section-inner { position: relative; z-index: 2; }
+  .cta .section-title { color: #fff; margin-bottom: 1rem; }
+  .cta .section-title .orange { color: var(--sunrise-gold); }
+  .cta-sub { color: rgba(255,255,255,0.8); font-size: 1.1rem; margin-bottom: 2.5rem; line-height: 1.8; }
+  .cta-btn {
+    display: inline-block; background: var(--sunrise-orange); color: #fff;
+    font-family: 'Zen Maru Gothic', sans-serif; font-size: 1.3rem; font-weight: 700;
+    padding: 1.2rem 3.5rem; border-radius: 60px; text-decoration: none;
+    transition: all 0.3s ease; box-shadow: 0 4px 24px rgba(242,100,25,0.4);
+  }
+  .cta-btn:hover { transform: translateY(-3px) scale(1.03); box-shadow: 0 8px 32px rgba(242,100,25,0.5); }
+  .cta-note { color: rgba(255,255,255,0.5); font-size: 0.85rem; margin-top: 1.2rem; }
+
+  /* ===== FAQ ===== */
+  .faq { background: #fff; }
+  .faq-list { max-width: 700px; margin: 2rem auto 0; display: flex; flex-direction: column; gap: 1rem; }
+  .faq-item { border: 1px solid var(--sand); border-radius: 12px; overflow: hidden; }
+  .faq-q {
+    padding: 1.2rem 1.5rem; font-family: 'Zen Maru Gothic', sans-serif; font-weight: 700;
+    font-size: 1rem; color: var(--ocean-deep); cursor: pointer;
+    display: flex; justify-content: space-between; align-items: center;
+    background: #fafafa; transition: background 0.2s;
+  }
+  .faq-q:hover { background: #f0f0f0; }
+  .faq-q .arrow { transition: transform 0.3s; font-size: 0.8rem; color: var(--wave-blue); }
+  .faq-a { max-height: 0; overflow: hidden; transition: max-height 0.4s ease, padding 0.3s ease; }
+  .faq-a-inner { padding: 0 1.5rem 1.2rem; color: var(--text-mid); font-size: 0.95rem; line-height: 1.8; }
+  .faq-item.open .faq-a { max-height: 300px; }
+  .faq-item.open .arrow { transform: rotate(180deg); }
+
+  footer { background: var(--ocean-deep); color: rgba(255,255,255,0.5); text-align: center; padding: 2rem; font-size: 0.85rem; }
+  footer a { color: rgba(255,255,255,0.7); text-decoration: none; }
+
+  .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <div class="hero-badge">初期費用・月額 完全無料</div>
+    <h1>
+      <span class="accent">スマホ1台</span>で、<br>獲れたて直送。
+      <span class="small-line">ライブ販売の裏側、ぜんぶやります。</span>
+    </h1>
+    <p class="hero-sub">
+      Tiktokライブで売るだけ！
+      受注・伝票・発送の手配は全部おまかせ。<br>
+      長崎の水産業者のためのライブコマース支援サービス。
+    </p>
+    <a href="#contact" class="hero-cta">まずは無料で相談する</a>
+    <p class="hero-note">※ サービス利用料10%のみ。売れなければ費用はかかりません。</p>
+  </div>
+</section>
+
+<!-- PHOTO BAND -->
+<div class="photo-band">
+  <img src="https://images.unsplash.com/photo-1534256958597-7fe685cbd745?q=80&w=1112&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="新鮮な魚" loading="lazy">
+  <img src="https://plus.unsplash.com/premium_photo-1671809039835-fd2073cb956a?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="焼き魚" loading="lazy">
+  <img src="https://images.unsplash.com/photo-1507124441518-c9584b9dc520?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="海と船" loading="lazy">
+</div>
+
+<!-- PROBLEM -->
+<section class="problem">
+  <div class="section-inner">
+    <div class="section-label">こんな悩み、ありませんか？</div>
+    <h2 class="section-title">魚は獲れる。売り方がわからん。</h2>
+    <div class="problem-grid">
+      <div class="problem-card reveal">
+        <div class="icon">📉</div>
+        <h3>市場の買値が年々下がっとる</h3>
+        <p>燃料費は上がるのに、セリ値は据え置き。利益がどんどん薄くなっている。</p>
+      </div>
+      <div class="problem-card reveal">
+        <div class="icon">🤷</div>
+        <h3>ネット販売って何から始めれば…</h3>
+        <p>ECサイト？ショッピングモール？登録だけで疲れる。写真撮影も無理。</p>
+      </div>
+      <div class="problem-card reveal">
+        <div class="icon">📦</div>
+        <h3>注文が来ても発送が面倒すぎる</h3>
+        <p>受注管理、梱包、伝票作成、クール便手配…。船から上がって誰がやるのか。</p>
+      </div>
+      <div class="problem-card reveal">
+        <div class="icon">📱</div>
+        <h3>TikTokは見るけど、売る側は…</h3>
+        <p>ライブ販売が流行っているのは知ってる。でも裏側の仕組みがわからない。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SOLUTION -->
+<section class="solution">
+  <div class="section-inner" style="padding-top: 3rem;">
+    <div class="section-label">解決策</div>
+    <h2 class="section-title">
+      あなたは<span class="orange">ライブで喋るだけ。</span><br>あとは全部、こっちでやります。
+    </h2>
+    <div class="steps">
+      <div class="step reveal">
+        <div class="step-number">1</div>
+        <div class="step-content">
+          <h3>📱 スマホでライブ配信</h3>
+          <p>港でも船の上でも、スマホ1台あればOK。今日の水揚げを見せながら「これ旨かよ〜」と喋るだけ。売れるトークのコツもお伝えします。</p>
+        </div>
+        <div class="step-connector"></div>
+      </div>
+      <div class="step reveal">
+        <div class="step-number">2</div>
+        <div class="step-content">
+          <h3>🛒 注文は自動で受付</h3>
+          <p>視聴者がポチッと購入したら、受注データが自動で届きます。面倒な注文管理は一切不要。</p>
+        </div>
+        <div class="step-connector"></div>
+      </div>
+      <div class="step reveal">
+        <div class="step-number">3</div>
+        <div class="step-content">
+          <h3>🖨️ 納品書と送り状を印刷</h3>
+          <p>毎朝、その日の出荷分の納品書と配送伝票が自動で生成されます。プリンターで印刷するだけ。</p>
+        </div>
+        <div class="step-connector"></div>
+      </div>
+      <div class="step reveal">
+        <div class="step-number">4</div>
+        <div class="step-content">
+          <h3>📦 梱包してクール便で発送</h3>
+          <p>魚を箱に詰めて、伝票を貼って、集荷に出すだけ。いつもの出荷作業と変わりません。</p>
+        </div>
+        <div class="step-connector"></div>
+      </div>
+      <div class="step reveal">
+        <div class="step-number">5</div>
+        <div class="step-content">
+          <h3>💰 売上が振り込まれる</h3>
+          <p>売上金はTikTokからあなたの口座へ直接入金。当社の手数料は月末にまとめてご請求するだけ。お金の流れがシンプルだから安心です。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DIVIDE -->
+<section class="divide">
+  <div class="section-inner">
+    <div class="section-label">役割分担</div>
+    <h2 class="section-title">あなたがやること、<span class="orange">たった3つ。</span></h2>
+    <div class="divide-grid">
+      <div class="divide-box divide-you reveal">
+        <h3>🎣 あなたがやること</h3>
+        <ul class="divide-list">
+          <li><span class="emoji">📱</span>スマホでライブ配信する</li>
+          <li><span class="emoji">🖨️</span>納品書・送り状を印刷する</li>
+          <li><span class="emoji">📦</span>箱に詰めてクール便で出す</li>
+        </ul>
+      </div>
+      <div class="divide-box divide-us reveal">
+        <h3>🏢 私たちがやること</h3>
+        <ul class="divide-list">
+          <li><span class="emoji">🛍️</span>TikTokショップの開設・運営</li>
+          <li><span class="emoji">🛒</span>受注管理・在庫管理</li>
+          <li><span class="emoji">📄</span>納品書・配送伝票の自動生成</li>
+          <li><span class="emoji">📞</span>お客様対応・クレーム処理</li>
+          <li><span class="emoji">📊</span>売上レポート・分析</li>
+          <li><span class="emoji">📈</span>売れるライブのアドバイス</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section class="products">
+  <div class="section-inner">
+    <div class="section-label">商品ラインナップ</div>
+    <h2 class="section-title">水揚げしたら、<span class="orange">そのまま直送。</span></h2>
+    <div class="product-grid">
+      <div class="product-card reveal">
+        <div class="product-img">
+          <img src="https://images.unsplash.com/photo-1510130387422-82bed34b37e9?w=600&q=80" alt="鮮魚BOX" loading="lazy">
+        </div>
+        <div class="product-body">
+          <div class="product-name">朝獲れ鮮魚BOX</div>
+          <div class="product-weight">レギュラー 3kg</div>
+          <div class="product-price">¥4,000 <span class="tax">税込・送料別</span></div>
+          <div class="product-note">お試しや少人数のご家庭に。その日の水揚げからおまかせで詰め合わせ。</div>
+        </div>
+      </div>
+      <div class="product-card reveal">
+        <div class="product-img">
+          <img src="https://images.unsplash.com/photo-1632389879997-330b17bf1923?q=80&w=1228&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="たっぷり鮮魚BOX" loading="lazy">
+        </div>
+        <div class="product-body">
+          <div class="product-name">朝獲れ鮮魚BOX</div>
+          <div class="product-weight">たっぷり 5kg</div>
+          <div class="product-price">¥6,000 <span class="tax">税込・送料別</span></div>
+          <div class="product-note">大家族や魚好きの方に。ボリュームたっぷり、キロ単価もお得です。</div>
+        </div>
+      </div>
+      <div class="product-card reveal">
+        <div class="product-img">
+          <img src="https://images.unsplash.com/photo-1535399831218-d5bd36d1a6b3?w=600&q=80" alt="高級魚入りBOX" loading="lazy">
+        </div>
+        <div class="product-body">
+          <div class="product-badge">数量限定</div>
+          <div class="product-name">高級魚入り プレミアムBOX</div>
+          <div class="product-weight">5kg（真鯛・ヒラメ等入り）</div>
+          <div class="product-price">¥10,000 <span class="tax">税込・送料別</span></div>
+          <div class="product-note">いい魚が揚がった日だけの特別BOX。ライブでしか買えない限定品。</div>
+        </div>
+      </div>
+    </div>
+    <p style="text-align:center; margin-top:1.5rem; color:var(--text-mid); font-size:0.85rem;">
+      ※ 送料はクール便代（1,200〜1,800円目安）を買い手様にご負担いただきます
+    </p>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing">
+  <div class="section-inner">
+    <div class="section-label">料金</div>
+    <h2 class="section-title">売れた分だけ。<span class="orange">それだけ。</span></h2>
+    <div class="price-card reveal">
+      <div class="price-highlight">初期費用</div>
+      <div class="price-zero"><span class="big">¥0</span></div>
+      <div class="price-highlight" style="margin-top: 1.5rem;">月額固定費</div>
+      <div class="price-zero"><span class="big">¥0</span></div>
+      <div class="price-commission" style="margin-top: 2rem;">
+        サービス利用料 <span class="num">10</span>%<br>
+        <span style="font-size: 0.9rem; color: var(--text-mid); font-weight: 400;">売上に応じて月末にご請求</span>
+      </div>
+      <div style="background: #f0f7fa; border-radius: 12px; padding: 1.2rem; margin-bottom: 2rem; text-align: left;">
+        <p style="font-size: 0.9rem; color: var(--text-mid); line-height: 1.7;">
+          💡 <strong style="color: var(--ocean-deep);">お金の流れ：</strong>売上はTikTokからあなたの口座に直接入金されます。<br>当社への手数料10%は月末に別途お支払い。売上を預かることはありません。<br>
+          <span style="font-size: 0.8rem;">※ TikTokのプラットフォーム手数料（7%）は売上から自動的に差し引かれます</span>
+        </p>
+      </div>
+      <div class="price-includes">
+        <div class="price-item"><div class="price-check">✓</div>TikTokショップ開設・運営代行</div>
+        <div class="price-item"><div class="price-check">✓</div>受注管理・配送伝票の自動生成</div>
+        <div class="price-item"><div class="price-check">✓</div>カスタマーサポート代行</div>
+        <div class="price-item"><div class="price-check">✓</div>売上分析・ライブ改善アドバイス</div>
+        <div class="price-item"><div class="price-check">✓</div>解約はいつでも自由</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VOICE -->
+<section class="voice">
+  <div class="section-inner">
+    <div class="section-label">利用者の声</div>
+    <h2 class="section-title">最初は半信半疑やった。</h2>
+    <div class="voice-card reveal">
+      <p class="voice-text">
+        ライブなんて若い子がやることと思っとったけど、やってみたら常連さんがついてきた。「おっちゃんの魚待っとったよ」って言われると嬉しくてたまらん。セリに出すより手取りが全然違う。面倒な事務作業は全部やってくれるけん、漁に集中できるのが一番ありがたか。
+      </p>
+      <div class="voice-author">
+        <div class="voice-avatar">🎣</div>
+        <div>
+          <div class="voice-name">長崎県 漁業者 Tさん（58歳）</div>
+          <div class="voice-role">利用開始3ヶ月で月商40万円達成</div>
+        </div>
+      </div>
+    </div>
+    <p style="text-align:center; margin-top:1.2rem; color:var(--text-mid); font-size:0.85rem;">※ 想定される利用イメージです</p>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq">
+  <div class="section-inner">
+    <div class="section-label">よくある質問</div>
+    <h2 class="section-title">気になること、聞いてください。</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">TikTokを使ったことがなくても大丈夫？<span class="arrow">▼</span></div>
+        <div class="faq-a"><div class="faq-a-inner">大丈夫です。アカウントの作成からライブ配信の操作まで、最初は一緒にやりながらお伝えします。スマホで電話ができれば十分です。</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">どんな魚でも売れますか？<span class="arrow">▼</span></div>
+        <div class="faq-a"><div class="faq-a-inner">基本的にはどんな魚種でもOKです。むしろスーパーに並ばない未利用魚や地魚のほうが「ここでしか買えない」と人気が出ることが多いです。鮮魚だけでなく、干物や加工品も対応しています。</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">毎日ライブしないといけない？<span class="arrow">▼</span></div>
+        <div class="faq-a"><div class="faq-a-inner">いいえ、漁に出た日だけ、余裕がある時だけで構いません。週1〜2回からでも始められます。水揚げがあった日にサッと15分配信するだけでも効果はあります。</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">発送で必要なものは？<span class="arrow">▼</span></div>
+        <div class="faq-a"><div class="faq-a-inner">プリンター（A4普通紙が印刷できればOK）と、梱包用の発泡スチロール箱があれば始められます。箱の手配もご相談に乗ります。クール便の集荷は毎日手配します。</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">費用の仕組みを教えてください<span class="arrow">▼</span></div>
+        <div class="faq-a"><div class="faq-a-inner">売上金はTikTokからあなたの口座に直接入金されます（TikTokのプラットフォーム手数料7%を差し引いた金額）。当社のサービス手数料10%は、月末に別途ご請求します。送料はお客様負担、配送資材の実費は既存の出荷と同じです。初期費用・月額固定費は一切かかりません。</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta" id="contact">
+  <div class="cta-bg"></div>
+  <div class="section-inner">
+    <h2 class="section-title">まずは<span class="orange">話だけ</span>でも。</h2>
+    <p class="cta-sub">「うちでもできるかな？」で十分です。<br>漁の合間に、お気軽にご連絡ください。</p>
+    <a href="tel:0120000000" class="cta-btn">📞 電話で相談する</a>
+    <p class="cta-note">受付：平日 9:00〜18:00 ／ LINEでのご相談も可能です</p>
+  </div>
+</section>
+
+<footer>
+  <p>© 2025 ライブ直送サービス ／ 長崎県</p>
+  <p style="margin-top: 0.5rem;"><a href="#">特定商取引法に基づく表記</a> ／ <a href="#">プライバシーポリシー</a></p>
+</footer>
+
+<script>
+function toggleFaq(el) {
+  const item = el.parentElement;
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+  if (!isOpen) item.classList.add('open');
+}
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+}, { threshold: 0.15 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
